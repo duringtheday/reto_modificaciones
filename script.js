@@ -20,6 +20,9 @@ let cambioEstiloBtn = document.getElementById('cambio-estilo-btn');
 // circuloContenedor.classList.toggle('turquesa');
 
 
+let rotationDegree = 0;
+let isClockwise = true; // dirección de la rotación
+
 // Definir las clases de colores y el índice inicial
 const colorClassesCirculo = ['verde', 'amarillo', 'naranja', 'rojo', 'violeta', 'azul', 'turquesa'];
 let indiceColorActualCirculo = 0;
@@ -28,10 +31,24 @@ let indiceColorActualCirculo = 0;
 function cambiaColorCirculo() {
     // Eliminar todas las clases de color del botón
     colorClassesCirculo.forEach(colorClassesCirculo => circuloContenedor.classList.remove(colorClassesCirculo));
-    
+
     // Agregar la siguiente clase de color
     circuloContenedor.classList.add(colorClassesCirculo[indiceColorActualCirculo]);
-    
+
+
+    // Alternar la dirección de rotación
+    isClockwise = !isClockwise;
+
+    // Calcular la nueva rotación
+    rotationDegree = isClockwise ? rotationDegree + 360 : rotationDegree - 360;
+
+
+    // Aplicar Rotación
+    // circuloContenedor.style.transform = `rotate(${indiceColorActualCirculo * 360}deg)`;
+    circuloContenedor.style.transform = `rotate(${rotationDegree}deg)`;
+    circuloContenedor.style.transition = `all 1s ease-in-out`;
+    circuloContenedor.style.animation = `cambio-de-color 1s ease-in-out`;
+
     // Actualizar el índice para el siguiente color
     // Siendo que `indiceColorActual` empieza en 0 y la longitud del array es
     // `7`, entonces, por norma si es menor a 7 será igual a su mismo número que,
@@ -66,10 +83,10 @@ let indiceColorActual = 0;
 function cambiaColorBoton() {
     // Eliminar todas las clases de color del botón
     colorClasses.forEach(colorClass => cambioEstiloBtn.classList.remove(colorClass));
-    
+
     // Agregar la siguiente clase de color
     cambioEstiloBtn.classList.add(colorClasses[indiceColorActual]);
-    
+
     // Actualizar el índice para el siguiente color
     // Siendo que `indiceColorActual` empieza en 0 y la longitud del array es
     // `7`, entonces, por norma si es menor a 7 será igual a su mismo número que,
@@ -81,7 +98,7 @@ function cambiaColorBoton() {
     // < `divisor`, entonces, `residuo` = `dividendo`)
     indiceColorActual = (indiceColorActual + 1) % colorClasses.length;
 
-    
+
 }
 
 // Añadir el event listener al botón
