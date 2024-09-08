@@ -1,123 +1,205 @@
-// Reto: Modificaciones
-// 1. Cambia los estilos del contenedor de color verde en pantalla, 
-// modifica cualquier propiedad de css directamente y añade un atributo 
-// de estilos al texto. 🧠
-// 2. Intenta escribir el código de HTML, CSS y JS que ves en esta 
-// página renderizada. No tiene que ser perfecto! 🧑‍💻 
-
-// Seleccionar elemento `circulo` (ID)
-let circuloContenedor = document.getElementById('circulo');
-let mensaje = document.getElementById('mensaje');
-let cambioEstiloBtn = document.getElementById('cambio-estilo-btn');
-
-// Añadir clases (diversos colores para alternarlos)
-// circuloContenedor.classList.toggle('verde');
-// circuloContenedor.classList.toggle('amarillo');
-// circuloContenedor.classList.toggle('naranja');
-// circuloContenedor.classList.toggle('rojo');
-// circuloContenedor.classList.toggle('violeta');
-// circuloContenedor.classList.toggle('azul');
-// circuloContenedor.classList.toggle('turquesa');
-
-
-let rotationDegree = 0;
-let isClockwise = true; // dirección de la rotación
-
-// Definir las clases de colores y el índice inicial
-const colorClassesCirculo = ['verde', 'amarillo', 'naranja', 'rojo', 'violeta', 'azul', 'turquesa'];
-let indiceColorActualCirculo = 0;
-
-// Función para cambiar el color del botón
-function cambiaColorCirculo() {
-    // Eliminar todas las clases de color del botón
-    colorClassesCirculo.forEach(colorClassesCirculo => circuloContenedor.classList.remove(colorClassesCirculo));
-
-    // Agregar la siguiente clase de color
-    circuloContenedor.classList.add(colorClassesCirculo[indiceColorActualCirculo]);
-
-
-    // Alternar la dirección de rotación
-    isClockwise = !isClockwise;
-
-    // Calcular la nueva rotación
-    rotationDegree = isClockwise ? rotationDegree + 360 : rotationDegree - 360;
-
-
-    // Aplicar Rotación
-    // circuloContenedor.style.transform = `rotate(${indiceColorActualCirculo * 360}deg)`;
-    circuloContenedor.style.transform = `rotate(${rotationDegree}deg)`;
-    circuloContenedor.style.transition = `all 1s ease-in-out`;
-    // Trigger a reflow to ensure transition is applied correctly
-    circuloContenedor.offsetHeight; // This line forces a reflow
-
-
-    // Set start color (current color before transition)
-    let startColor = getComputedStyle(circuloContenedor).background;
-
-    // Add the new color class for transition
-    circuloContenedor.classList.add(colorClassesCirculo[indiceColorActualCirculo]);
-
-    // Set end color (new color after adding class)
-    let endColor = getComputedStyle(circuloContenedor).background;
-
-    // Set CSS variables for the transition
-    circuloContenedor.style.setProperty('--start-color', startColor);
-    circuloContenedor.style.setProperty('--end-color', endColor);
-
-    // Trigger color change animation
-    circuloContenedor.style.animation = 'changeColor 1s ease-in-out';
-
-    // Actualizar el índice para el siguiente color
-    // Siendo que `indiceColorActual` empieza en 0 y la longitud del array es
-    // `7`, entonces, por norma si es menor a 7 será igual a su mismo número que,
-    // en este caso, es el `dividendo` (el índice) y la longitud el `divisor`:
-    // - con índice `0`: indiceColorActual = (0 + 1) % 7 = 1
-    // - con índices `1`, `2`, `3`, `4`, `5`, `6`: 
-    // indiceColorActual = `2`, `3`, `4`, `5`, `6`, `7` (porque sumamos `+1`)
-    // residuos (a partir de índie 0): `0`, `1`, `2`, `3`, `4`, `5`, `6` (`dividendo` 
-    // < `divisor`, entonces, `residuo` = `dividendo`)
-    indiceColorActualCirculo = (indiceColorActualCirculo + 1) % colorClassesCirculo.length;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-size: none;
 }
 
-// Añadir el event listener al botón
-circuloContenedor.addEventListener('click', cambiaColorCirculo);
-
-
-
-
-// Alterna entre forma cuadrada y circular
-circuloContenedor.style.borderRadius = circuloContenedor.style.borderRadius === '50%' ? '0' : '50%';
-
-// cambio de estilo de texto
-mensaje.setAttribute('style', 'color: white');
-
-
-
-// Definir las clases de colores y el índice inicial
-const colorClasses = ['verde', 'amarillo', 'naranja', 'rojo', 'violeta', 'azul', 'turquesa'];
-let indiceColorActual = 0;
-
-// Función para cambiar el color del botón
-function cambiaColorBoton() {
-    // Eliminar todas las clases de color del botón
-    colorClasses.forEach(colorClass => cambioEstiloBtn.classList.remove(colorClass));
-
-    // Agregar la siguiente clase de color
-    cambioEstiloBtn.classList.add(colorClasses[indiceColorActual]);
-
-    // Actualizar el índice para el siguiente color
-    // Siendo que `indiceColorActual` empieza en 0 y la longitud del array es
-    // `7`, entonces, por norma si es menor a 7 será igual a su mismo número que,
-    // en este caso, es el `dividendo` (el índice) y la longitud el `divisor`:
-    // - con índice `0`: indiceColorActual = (0 + 1) % 7 = 1
-    // - con índices `1`, `2`, `3`, `4`, `5`, `6`: 
-    // indiceColorActual = `2`, `3`, `4`, `5`, `6`, `7` (porque sumamos `+1`)
-    // residuos (a partir de índie 0): `0`, `1`, `2`, `3`, `4`, `5`, `6` (`dividendo` 
-    // < `divisor`, entonces, `residuo` = `dividendo`)
-    indiceColorActual = (indiceColorActual + 1) % colorClasses.length;
-
-
+ul, 
+ol {
+    list-style: none;
 }
 
-// Añadir el event listener al botón
-cambioEstiloBtn.addEventListener('click', cambiaColorBoton);
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    /* height: 100vh; */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    letter-spacing: 0.8px;
+    overflow: hidden;
+    
+}
+
+/* Encabezado */
+#header {
+    padding: 50px;
+    width: 100%;
+    background: linear-gradient(150deg, #333333, #696969) no-repeat;
+    color: white;
+}
+#header h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    letter-spacing: 0.8px;
+}
+
+/* Bloque principal */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 60vh;
+    width: 100%;
+    background: linear-gradient(150deg, #8cc0f5, #afd7ff);
+
+}
+/* Bloque para cambios de estilo */
+.cambiar-estilo {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px;
+}
+/* Círculo */
+#circulo {
+    /* position: absolute; */
+    width: 250px;
+    height: 250px;
+    /* background: linear-gradient(150deg, #33ff57, #55ff74); */
+    /* opacity: 0.8; */
+    border: 2px solid rgb(1, 21, 3);
+    /* border-radius: 50%; */
+    overflow: hidden;
+    transition: background 0.5s ease, transform 0.5s ease;
+    animation: changeColor 5s linear infinite;
+    cursor: pointer;
+    
+}
+/* Párrafo */
+.cambiar-estilo p {
+    position: absolute;
+    top: 75px;
+    margin: 20px;
+    text-align: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 1.5rem;
+    color: rgb(18, 21, 23);
+    letter-spacing: 0.8px;
+    z-index: 1;
+}
+/* Botón `Cambiar Estilo` */
+#cambio-estilo-btn {
+    /* position: absolute; */
+    top: 200px;
+    margin: 50px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px #333333;
+    z-index: 2;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+#cambio-estilo-btn:hover {
+    transform: scale(1.05);
+}
+/* .verde {
+    background: linear-gradient(150deg, #33ff57, #55ff74);
+    color: rgb(2, 30, 6);
+}
+.amarillo {
+    background: linear-gradient(150deg, #fcff33, #fcff55);
+    color: rgb(37, 37, 2);
+}
+.naranja {
+    background: linear-gradient(150deg, #ffb133, #ffbe55);
+    color: rgb(59, 37, 2);  
+}
+.rojo {
+    background: linear-gradient(150deg, #ff3333, #ff5555);
+    color: rgb(255, 240, 240);
+}
+.violeta {
+    background: linear-gradient(150deg, #f133ff, #ff55f1);
+    color: rgb(255, 240, 255);
+
+}
+.azul {
+    background: linear-gradient(150deg, #3358ff, #557fff);
+    color: rgb(240, 243, 255);
+}
+.turquesa {
+    background: linear-gradient(150deg, #33e0ff, #55eeff);
+    color: rgb(2, 31, 33);
+}
+@keyframes changeColor {
+    0% {
+        background: var(--start-color);
+    }
+    100% {
+        background: var(--end-color);
+    }
+} */
+.verde {
+    background: #33ff57;
+    color: rgb(2, 30, 6);
+}
+.amarillo {
+    background: #fcff33;
+    color: rgb(37, 37, 2);
+}
+.naranja {
+    background: #ffb133;
+    color: rgb(59, 37, 2);  
+}
+.rojo {
+    background: #ff3333;
+    color: rgb(255, 240, 240);
+}
+.violeta {
+    background: #f133ff;
+    color: rgb(255, 240, 255);
+
+}
+.azul {
+    background: #3358ff;
+    color: rgb(240, 243, 255);
+}
+.turquesa {
+    background: #33e0ff;
+    color: rgb(2, 31, 33);
+}
+@keyframes changeColor {
+    0% {
+        background: var(--start-color);
+    }
+    100% {
+        background: var(--end-color);
+    }
+}
+
+#footer {
+    padding: 20px;
+    width: 100%;
+    background: linear-gradient(150deg, #333333, #696969) no-repeat;
+    color: white;
+    text-align: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.8px;
+}
+
+
+
+/* #prueba {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: #333333;
+    border-radius: 50%;
+    z-index: 3;
+    animation: cambiaColor 3s ease-in-out infinite alternate;
+}
+@keyframes cambiaColor {
+    0% {
+        background: #3358ff;
+    }
+    100% {
+        background: violet;
+    }
+} */
