@@ -65,7 +65,10 @@ main {
     border: 2px solid rgb(1, 21, 3);
     /* border-radius: 50%; */
     overflow: hidden;
+    transition: background 0.5s ease, transform 0.5s ease;
+    animation: changeColor 5s linear infinite;
     cursor: pointer;
+    
 }
 /* Párrafo */
 .cambiar-estilo p {
@@ -87,15 +90,18 @@ main {
     padding: 10px;
     border: none;
     border-radius: 10px;
+    /* background: #33ff57;  */
     box-shadow: 1px 1px 5px #333333;
-    z-index: 2;
-    transition: all 0.3s ease-in-out;
+    transition: background 0.5s ease, transform 0.5s ease;
+    /* animation: changeColor 3s linear infinite; */
+    /* animation: none; */
     cursor: pointer;
+    z-index: 2;
 }
 #cambio-estilo-btn:hover {
     transform: scale(1.05);
 }
-.verde {
+/* .verde {
     background: linear-gradient(150deg, #33ff57, #55ff74);
     color: rgb(2, 30, 6);
 }
@@ -124,6 +130,51 @@ main {
     background: linear-gradient(150deg, #33e0ff, #55eeff);
     color: rgb(2, 31, 33);
 }
+@keyframes changeColor {
+    0% {
+        background: var(--start-color);
+    }
+    100% {
+        background: var(--end-color);
+    }
+} */
+.verde {
+    background: #33ff57;
+    color: rgb(2, 30, 6);
+}
+.amarillo {
+    background: #fcff33;
+    color: rgb(37, 37, 2);
+}
+.naranja {
+    background: #ffb133;
+    color: rgb(59, 37, 2);  
+}
+.rojo {
+    background: #ff3333;
+    color: rgb(255, 240, 240);
+}
+.violeta {
+    background: #f133ff;
+    color: rgb(255, 240, 255);
+
+}
+.azul {
+    background: #3358ff;
+    color: rgb(240, 243, 255);
+}
+.turquesa {
+    background: #33e0ff;
+    color: rgb(2, 31, 33);
+}
+@keyframes changeColor {
+    0% {
+        background: var(--start-color);
+    }
+    100% {
+        background: var(--end-color);
+    }
+}
 
 #footer {
     padding: 20px;
@@ -135,3 +186,23 @@ main {
     font-size: 12px;
     letter-spacing: 0.8px;
 }
+
+
+
+/* #prueba {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: #333333;
+    border-radius: 50%;
+    z-index: 3;
+    animation: cambiaColor 3s ease-in-out infinite alternate;
+}
+@keyframes cambiaColor {
+    0% {
+        background: #3358ff;
+    }
+    100% {
+        background: violet;
+    }
+} */
