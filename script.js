@@ -47,7 +47,25 @@ function cambiaColorCirculo() {
     // circuloContenedor.style.transform = `rotate(${indiceColorActualCirculo * 360}deg)`;
     circuloContenedor.style.transform = `rotate(${rotationDegree}deg)`;
     circuloContenedor.style.transition = `all 1s ease-in-out`;
-    circuloContenedor.style.animation = `cambio-de-color 1s ease-in-out`;
+    // Trigger a reflow to ensure transition is applied correctly
+    circuloContenedor.offsetHeight; // This line forces a reflow
+
+
+    // Set start color (current color before transition)
+    let startColor = getComputedStyle(circuloContenedor).background;
+
+    // Add the new color class for transition
+    circuloContenedor.classList.add(colorClassesCirculo[indiceColorActualCirculo]);
+
+    // Set end color (new color after adding class)
+    let endColor = getComputedStyle(circuloContenedor).background;
+
+    // Set CSS variables for the transition
+    circuloContenedor.style.setProperty('--start-color', startColor);
+    circuloContenedor.style.setProperty('--end-color', endColor);
+
+    // Trigger color change animation
+    circuloContenedor.style.animation = 'changeColor 1s ease-in-out';
 
     // Actualizar el índice para el siguiente color
     // Siendo que `indiceColorActual` empieza en 0 y la longitud del array es
