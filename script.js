@@ -26,7 +26,7 @@ let isClockwise = true; // dirección de la rotación
 // Definir las clases de colores y el índice inicial
 const colorClassesCirculo = ['verde', 'amarillo', 'naranja', 'rojo', 'violeta', 'azul', 'turquesa'];
 let indiceColorActualCirculo = 0;
-let hue = 0; // Inicializar hue
+// let hue = 0; // Inicializar hue
 
 // Función para cambiar el color del botón
 function cambiaColorCirculo() {
@@ -127,13 +127,13 @@ function cambiaColorBoton() {
 
     // CHANGE COLOR
     // Trigger a reflow to ensure transition is applied correctly
-    circuloContenedor.offsetHeight; // This line forces a reflow
+    cambioEstiloBtn.offsetHeight; // This line forces a reflow
 
     // Set start color (current color before transition)
     let startColor = getComputedStyle(cambioEstiloBtn).background;
 
     // Add the new color class for transition
-    cambioEstiloBtn.classList.add(colorClasses[indiceColorActualCirculo]);
+    cambioEstiloBtn.classList.add(colorClasses[indiceColorActual]);
 
     // Set end color (new color after adding class)
     let endColor = getComputedStyle(cambioEstiloBtn).background;
